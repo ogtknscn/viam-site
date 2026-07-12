@@ -19,48 +19,64 @@
     --font-headline: "Times New Roman", Times, serif;
     --font-body: "Times New Roman", Times, serif;
     --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+    --sidebar-w: 240px;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-body);
-    line-height: 1.6;
+    line-height: 1.65;
   }
   h1, h2, h3 { font-family: var(--font-headline); }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-  .position-bar {
+  p { color: var(--fg-dim); }
+
+  .shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    min-height: 100vh;
+  }
+
+  .sidebar {
     position: sticky;
     top: 0;
-    z-index: 10;
+    height: 100vh;
+    padding: 48px 28px;
+    border-right: 1px solid var(--border);
     display: flex;
-    justify-content: center;
-    gap: 28px;
-    flex-wrap: wrap;
-    padding: 14px 24px;
-    background: var(--bg-alt);
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .sidebar .brand {
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .sidebar .tagline {
     font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--fg-dim);
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin: 0 0 40px;
   }
-  .position-bar .step { display: flex; align-items: center; gap: 7px; }
-  .position-bar .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--border);
-    display: inline-block;
+  .sidebar nav { display: flex; flex-direction: column; gap: 18px; }
+  .sidebar .step {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--fg-dim);
   }
-  .position-bar .step.current { color: var(--accent); }
-  .position-bar .step.current .dot { background: var(--accent); }
-  .position-bar a { color: inherit; text-decoration: none; }
-  .position-bar a:hover { color: var(--fg); }
-  header.hero {
-    padding: 80px 0 64px;
-    text-align: center;
-  }
-  .hero h1 { font-size: 3rem; margin: 0 0 12px; letter-spacing: 0.04em; text-transform: uppercase; }
-  .hero .tagline { font-size: 1.3rem; color: var(--accent); margin: 0 0 20px; font-weight: 600; }
-  .hero .sub { color: var(--fg-dim); max-width: 580px; margin: 0 auto 32px; }
+  .sidebar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+  .sidebar .step.current { color: var(--accent); }
+  .sidebar .step.current .dot { background: var(--accent); }
+  .sidebar a { color: inherit; text-decoration: none; }
+  .sidebar a:hover { color: var(--fg); }
+  .sidebar .status-note { font-size: 0.78rem; color: var(--fg-dim); }
+
+  main { min-width: 0; padding: 64px 56px 40px; max-width: 760px; }
+
+  header.hero { padding-bottom: 56px; border-bottom: 1px solid var(--border); }
+  .hero .lede { font-size: 1.6rem; margin: 0 0 20px; color: var(--fg); max-width: 620px; }
   .install {
     display: inline-flex;
     align-items: center;
@@ -68,299 +84,321 @@
     background: var(--bg-alt);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 12px 18px;
+    padding: 10px 16px;
     font-family: var(--mono);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: var(--accent);
   }
-  .status-note { color: var(--fg-dim); font-size: 0.85rem; margin-top: 16px; }
-  section { padding: 48px 0; }
-  h2 { font-size: 1.6rem; margin: 0 0 24px; }
-  p { color: var(--fg-dim); }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-family: var(--mono);
+    margin: 0 0 20px;
+  }
+  section > p { max-width: 620px; }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    grid-auto-flow: dense;
+  }
   .card {
     background: var(--bg-alt);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
+    padding: 22px 24px;
   }
-  .card h3 { margin: 0 0 8px; font-size: 1.05rem; color: var(--fg); }
+  .card h3 { margin: 0 0 10px; font-size: 1.1rem; color: var(--fg); }
   .card p { margin: 0; }
   .card code { font-family: var(--mono); color: var(--accent); font-size: 0.9em; }
-  .roadmap-item { display: flex; gap: 16px; margin-bottom: 20px; }
+  .bento .card:nth-child(1) { grid-column: span 2; }
+  .bento .card:nth-child(2) { grid-column: span 1; grid-row: span 2; }
+  .bento .card:nth-child(3) { grid-column: span 1; }
+  .bento .card:nth-child(4) { grid-column: span 1; }
+  .bento .card:nth-child(5) { grid-column: span 3; }
+
+  .origin-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 24px 0; }
+
+  .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; max-width: 620px; }
   .roadmap-num {
     flex-shrink: 0;
-    width: 32px; height: 32px;
+    width: 30px; height: 30px;
     border-radius: 50%;
     background: var(--bg-alt);
     border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); color: var(--accent); font-size: 0.9rem;
+    font-family: var(--mono); color: var(--accent); font-size: 0.85rem;
   }
   .roadmap-item.active .roadmap-num { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .roadmap-item h3 { margin: 2px 0 4px; font-size: 1rem; }
+  .roadmap-item h3 { margin: 2px 0 6px; font-size: 1rem; }
   .roadmap-item p { margin: 0; }
-  .not-built li { color: var(--fg-dim); margin-bottom: 10px; }
+
+  .not-built li { color: var(--fg-dim); margin-bottom: 12px; max-width: 620px; }
   .not-built li strong { color: var(--fg); }
-  footer { padding: 48px 0 80px; text-align: center; color: var(--fg-dim); font-size: 0.85rem; }
+
+  footer { padding: 40px 0; color: var(--fg-dim); font-size: 0.85rem; }
+
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar {
+      position: sticky; top: 0; height: auto;
+      flex-direction: row; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-right: none; border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .sidebar nav { flex-direction: row; gap: 16px; overflow-x: auto; }
+    .sidebar .status-note, .sidebar .tagline { display: none; }
+    main { padding: 40px 24px; }
+    .bento { grid-template-columns: 1fr; }
+    .bento .card:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+    .origin-list { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<nav class="position-bar" id="position-bar">
-  <span class="step" data-target="what-is"><span class="dot"></span><a href="#what-is">What Viam is</a></span>
-  <span class="step" data-target="whats-inside"><span class="dot"></span><a href="#whats-inside">What's inside</a></span>
-  <span class="step" data-target="origin"><span class="dot"></span><a href="#origin">Origin</a></span>
-  <span class="step" data-target="not-built"><span class="dot"></span><a href="#not-built">Not built</a></span>
-  <span class="step" data-target="roadmap"><span class="dot"></span><a href="#roadmap">Roadmap</a></span>
-</nav>
-
-<header class="hero" id="hero">
-  <div class="wrap">
-    <h1>Viam</h1>
-    <p class="tagline">Validate before you build.</p>
-    <p class="sub">
-      A system built for one solo game developer, now becoming a product:
-      a knowledge base that remembers every past decision, a simulated
-      studio of specialized agents, and a discipline layer that asks
-      whether a game idea has real numbers behind it before treating it
-      as ready to build.
-    </p>
-    <div class="install">
-      <span>Phase 1: private, in active use on our own game projects</span>
+<div class="shell">
+  <aside class="sidebar">
+    <div>
+      <p class="brand">Viam</p>
+      <p class="tagline">Validate before you build.</p>
+      <nav id="position-nav">
+        <span class="step" data-target="what-is"><span class="dot"></span><a href="#what-is">What Viam is</a></span>
+        <span class="step" data-target="whats-inside"><span class="dot"></span><a href="#whats-inside">What's inside</a></span>
+        <span class="step" data-target="origin"><span class="dot"></span><a href="#origin">Origin</a></span>
+        <span class="step" data-target="not-built"><span class="dot"></span><a href="#not-built">Not built</a></span>
+        <span class="step" data-target="roadmap"><span class="dot"></span><a href="#roadmap">Roadmap</a></span>
+      </nav>
     </div>
-    <p class="status-note">Not yet publicly installable. Reach out if you'd like early access.</p>
-  </div>
-</header>
+    <p class="status-note">Phase 1: private, in active use on our own game projects.</p>
+  </aside>
 
-<section id="what-is">
-  <div class="wrap">
-    <h2>What Viam is</h2>
-    <p>
-      Viam is not one tool. It is three layers that work together: a RAG
-      knowledge base that never forgets a decision, a simulated studio of
-      role-specific agents that plan and build like a real team, and a
-      quantitative-data gate that refuses to treat an idea as validated
-      until it has actual numbers behind it. Most AI game tools are fast at
-      one thing: generating a document, writing a script, producing an
-      asset. Viam's job is different. It makes sure the thing being
-      generated deserved to exist in the first place.
-    </p>
-  </div>
-</section>
-
-<section id="whats-inside">
-  <div class="wrap">
-    <h2>What's inside</h2>
-
-    <div class="card">
-      <h3>RAG knowledge base</h3>
-      <p>
-        Three separate collections, kept separate on purpose so a query
-        never mixes unrelated context. One holds programming best
-        practices (Clean Code and free programming books, over a hundred
-        thousand indexed chunks). One holds game design documents and
-        logged design decisions, each decision tagged with the business
-        goal it served (retention, monetization, engagement, and so on)
-        and the designer's own stated reasoning, not a paraphrase of it.
-        One holds production methodology: project management, software
-        architecture, infrastructure. Every past decision is queryable, so
-        the system can answer "what did we decide, and why" instead of
-        starting from zero every time.
+  <main>
+    <header class="hero" id="hero">
+      <p class="lede">
+        A system built for one solo game developer, now becoming a product:
+        a knowledge base that remembers every past decision, a simulated
+        studio of specialized agents, and a discipline layer that asks
+        whether a game idea has real numbers behind it before treating it
+        as ready to build.
       </p>
-    </div>
-
-    <div class="card">
-      <h3>Multi-agent studio</h3>
-      <p>
-        Instead of one model doing everything, specialized agents split
-        the work the way a real studio would, each with a defined role: a
-        CEO agent for vision and scheduling, a CTO agent for technical
-        maintenance and audits, a game designer for mechanics, an art
-        director for translating visual designs into usable data, a
-        marketing lead for store and ad strategy, a production coordinator
-        that delegates coding work without writing code itself, and an
-        orchestrator that routes every incoming request to the right one.
-        All of them query the same knowledge base before acting, not just
-        their own memory.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Quantitative-data gate</h3>
-      <p>
-        Before a game design document is treated as validated, it is
-        scanned for concrete markers: percentages, dollar amounts, named
-        retention windows (D1, D7, D30), and terms like TAM, SAM, KPI,
-        CPI, ARPU, CAC, LTV, CAGR. A document needs at least two distinct
-        markers to pass. A document that only expresses enthusiasm, no
-        matter how well written, is quarantined instead of accepted.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Read-only dev tool access</h3>
-      <p>
-        External collaborators get scoped, read-only access to the
-        knowledge base, plus a submission path for their own decisions:
-        they write it locally, the tool opens a pull request against the
-        core system automatically, and a human reviews it before it joins
-        the shared knowledge base. No write access to the core system is
-        ever required to do the job.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3><code>viam</code> CLI (Phase 1, new)</h3>
-      <p>
-        The newest layer: a standalone terminal agent, built on Anthropic's
-        Claude Agent SDK, that carries the quantitative-data gate out of
-        this system and into a general-purpose tool anyone can run against
-        their own project. Two commands exist today:
-        <code>viam chat</code>, a terminal agent loop that reports which
-        model answered and which tools it called, and
-        <code>viam check-gdd</code>, which runs the same quantitative-data
-        gate described above against any file you point it at.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="origin">
-  <div class="wrap">
-    <h2>Where the CLI came from</h2>
-    <p>
-      We asked a simple question: why not build a CLI like Pi or Hermes
-      Agent, but for game development? So before writing a line of code,
-      we looked closely at what already exists.
-    </p>
-
-    <div class="card">
-      <h3>Pi</h3>
-      <p>An open-source agent harness built around a deliberately minimal
-      core: four tools, a system prompt under a thousand tokens, and
-      everything else added through a TypeScript extension system. Proof
-      that a lean harness can still be fully capable.</p>
-    </div>
-
-    <div class="card">
-      <h3>Hermes Agent</h3>
-      <p>Nous Research's self-hosted, self-improving agent. It writes its
-      own reusable skills after a complex task, keeps a three-layer memory
-      that survives across sessions, and reaches you over Telegram,
-      Discord, Slack, WhatsApp, or Signal, not just a terminal.</p>
-    </div>
-
-    <div class="card">
-      <h3>Bezi and Coplay</h3>
-      <p>Two different takes on a Unity-native AI assistant. Bezi indexes
-      your whole project (scripts, scenes, assets, even your GDD) and
-      answers or edits from inside the editor. Coplay goes further:
-      a plugin written directly in C#, living inside the Unity Editor
-      itself, with a system prompt tuned specifically for Unity work.</p>
-    </div>
-
-    <div class="card">
-      <h3>Unity MCP and Unity AI</h3>
-      <p>The open-source Unity MCP servers expose dozens of structured
-      editor operations (manage scenes, scripts, prefabs, materials)
-      safely, over the Model Context Protocol, to any AI client. Unity's
-      own native AI adds an in-editor assistant plus generators for
-      sprites, textures, and animation, no separate subscription required.</p>
-    </div>
-
-    <div class="card">
-      <h3>Atlas AI Studio</h3>
-      <p>A funded, multi-agent asset production platform, live on the
-      Google Cloud Marketplace, generating 2D and 3D assets, textures, and
-      environments with fleets of coordinated agents rather than one model.</p>
-    </div>
-
-    <div class="card">
-      <h3>Blueprint, StraySpark, and Ludo.ai</h3>
-      <p>Three different GDD generators, each turning a rough idea into a
-      structured design document (mechanics, systems, MVP scope, milestones)
-      in minutes, some requiring no account at all.</p>
-    </div>
-
-    <p>
-      Every one of them was already good, often very good, at generation
-      and execution speed. None of them asked whether the idea underneath
-      deserved to be built in the first place. That gap is where the CLI
-      layer starts, on top of a discipline the rest of the system already
-      had.
-    </p>
-  </div>
-</section>
-
-<section id="not-built">
-  <div class="wrap">
-    <h2>What we didn't build</h2>
-    <ul class="not-built">
-      <li><strong>Our own agent loop.</strong> The Claude Agent SDK already
-      gives us tool execution, context management, and MCP support. Pi and
-      Hermes Agent already solved this well as general-purpose harnesses,
-      so re-solving it would have added nothing.</li>
-      <li><strong>A Unity execution layer.</strong> Open-source Unity MCP
-      servers and Coplay already handle safe in-editor mutation properly.
-      That problem is solved, we're not re-solving it.</li>
-      <li><strong>An economy or balance simulator.</strong> Tools like
-      Itembase and Leap are already better at this than anything we'd ship
-      on day one.</li>
-      <li><strong>A full IDE.</strong> Viam is a discipline layer today,
-      not a replacement for your editor.</li>
-    </ul>
-  </div>
-</section>
-
-<section id="roadmap">
-  <div class="wrap">
-    <h2>Roadmap</h2>
-    <div class="roadmap-item active">
-      <div class="roadmap-num">1</div>
-      <div>
-        <h3>Working CLI for our own projects (now)</h3>
-        <p>Prove the discipline layer holds up against real games before
-        anyone else touches it. Concretely: both CLI commands run
-        reliably against our own in-development titles, authentication
-        works without daily friction, and the quantitative-data gate
-        catches a real weak idea at least once before Phase 2 starts.</p>
+      <div class="install">
+        <span>Not yet publicly installable, reach out for early access</span>
       </div>
-    </div>
-    <div class="roadmap-item">
-      <div class="roadmap-num">2</div>
-      <div>
-        <h3>Integration inside a partner platform</h3>
-        <p>Rather than selling Viam standalone, run it as a layer inside a
-        partner's existing product surface. Under discussion, not
-        finalized. The core stays independent of any single partner, built
-        as a portable module rather than something wired directly into
-        their stack, so it isn't stranded if that doesn't happen.</p>
-      </div>
-    </div>
-    <div class="roadmap-item">
-      <div class="roadmap-num">3</div>
-      <div>
-        <h3>Full-scale product (conditional, distant)</h3>
-        <p>Only after Phase 1 and 2 earn real validation, meaning outside
-        studios have actually used it and would pay for it, not just that
-        it works for us. Not a near-term plan, and no architecture
-        decisions are being made around it yet.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<footer>
-  <div class="wrap">
-    Viam. The CLI layer is built on the
-    <a href="https://code.claude.com/docs/en/agent-sdk/overview" style="color:var(--accent)">Claude Agent SDK</a>.
-    Powered by Claude.
-  </div>
-</footer>
+    <section id="what-is">
+      <h2>What Viam is</h2>
+      <p>
+        Viam is not one tool. It is three layers that work together: a RAG
+        knowledge base that never forgets a decision, a simulated studio of
+        role-specific agents that plan and build like a real team, and a
+        quantitative-data gate that refuses to treat an idea as validated
+        until it has actual numbers behind it. Most AI game tools are fast at
+        one thing: generating a document, writing a script, producing an
+        asset. Viam's job is different. It makes sure the thing being
+        generated deserved to exist in the first place.
+      </p>
+    </section>
+
+    <section id="whats-inside">
+      <h2>What's inside</h2>
+      <div class="bento">
+        <div class="card">
+          <h3>RAG knowledge base</h3>
+          <p>
+            Three separate collections, kept separate on purpose so a query
+            never mixes unrelated context. One holds programming best
+            practices (Clean Code and free programming books, over a hundred
+            thousand indexed chunks). One holds game design documents and
+            logged design decisions, each tagged with the business goal it
+            served (retention, monetization, engagement, and so on) and the
+            designer's own stated reasoning, not a paraphrase of it. One
+            holds production methodology: project management, software
+            architecture, infrastructure. Every past decision is queryable,
+            so the system can answer "what did we decide, and why" instead
+            of starting from zero every time.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Multi-agent studio</h3>
+          <p>
+            Instead of one model doing everything, specialized agents split
+            the work the way a real studio would, each with a defined role: a
+            CEO agent for vision and scheduling, a CTO agent for technical
+            maintenance and audits, a game designer for mechanics, an art
+            director for translating visual designs into usable data, a
+            marketing lead for store and ad strategy, a production
+            coordinator that delegates coding work without writing code
+            itself, and an orchestrator that routes every incoming request
+            to the right one. All of them query the same knowledge base
+            before acting, not just their own memory.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Quantitative-data gate</h3>
+          <p>
+            Before a game design document is treated as validated, it is
+            scanned for concrete markers: percentages, dollar amounts, named
+            retention windows (D1, D7, D30), and terms like TAM, SAM, KPI,
+            CPI, ARPU, CAC, LTV, CAGR. A document needs at least two
+            distinct markers to pass.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Read-only dev tool access</h3>
+          <p>
+            External collaborators get scoped, read-only access to the
+            knowledge base, plus a submission path: write locally, open a
+            pull request automatically, a human reviews it before it joins
+            the shared knowledge base.
+          </p>
+        </div>
+        <div class="card">
+          <h3><code>viam</code> CLI (Phase 1, new)</h3>
+          <p>
+            The newest layer: a standalone terminal agent, built on
+            Anthropic's Claude Agent SDK, that carries the quantitative-data
+            gate out of this system and into a general-purpose tool anyone
+            can run against their own project. Two commands exist today:
+            <code>viam chat</code>, a terminal agent loop that reports which
+            model answered and which tools it called, and
+            <code>viam check-gdd</code>, which runs the same
+            quantitative-data gate against any file you point it at.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="origin">
+      <h2>Where the CLI came from</h2>
+      <p>
+        We asked a simple question: why not build a CLI like Pi or Hermes
+        Agent, but for game development? So before writing a line of code,
+        we looked closely at what already exists.
+      </p>
+      <div class="origin-list">
+        <div class="card">
+          <h3>Pi</h3>
+          <p>An open-source agent harness built around a deliberately
+          minimal core: four tools, a system prompt under a thousand
+          tokens, everything else added through a TypeScript extension
+          system. Proof that a lean harness can still be fully capable.</p>
+        </div>
+        <div class="card">
+          <h3>Hermes Agent</h3>
+          <p>Nous Research's self-hosted, self-improving agent. It writes
+          its own reusable skills after a complex task, keeps a
+          three-layer memory that survives across sessions, and reaches
+          you over Telegram, Discord, Slack, WhatsApp, or Signal.</p>
+        </div>
+        <div class="card">
+          <h3>Bezi and Coplay</h3>
+          <p>Two takes on a Unity-native AI assistant. Bezi indexes your
+          whole project (scripts, scenes, assets, even your GDD). Coplay
+          goes further: a C# plugin living inside the Unity Editor itself,
+          system prompt tuned specifically for Unity work.</p>
+        </div>
+        <div class="card">
+          <h3>Unity MCP and Unity AI</h3>
+          <p>Open-source Unity MCP servers expose dozens of structured
+          editor operations safely over the Model Context Protocol. Unity's
+          own native AI adds an in-editor assistant plus asset generators,
+          no separate subscription required.</p>
+        </div>
+        <div class="card">
+          <h3>Atlas AI Studio</h3>
+          <p>A funded, multi-agent asset production platform, live on the
+          Google Cloud Marketplace, generating 2D and 3D assets with fleets
+          of coordinated agents rather than one model.</p>
+        </div>
+        <div class="card">
+          <h3>Blueprint, StraySpark, Ludo.ai</h3>
+          <p>Three different GDD generators, each turning a rough idea into
+          a structured design document in minutes, some requiring no
+          account at all.</p>
+        </div>
+      </div>
+      <p>
+        Every one of them was already good, often very good, at generation
+        and execution speed. None of them asked whether the idea underneath
+        deserved to be built in the first place. That gap is where the CLI
+        layer starts, on top of a discipline the rest of the system already
+        had.
+      </p>
+    </section>
+
+    <section id="not-built">
+      <h2>What we didn't build</h2>
+      <ul class="not-built">
+        <li><strong>Our own agent loop.</strong> The Claude Agent SDK
+        already gives us tool execution, context management, and MCP
+        support. Pi and Hermes Agent already solved this well as
+        general-purpose harnesses, so re-solving it would have added
+        nothing.</li>
+        <li><strong>A Unity execution layer.</strong> Open-source Unity MCP
+        servers and Coplay already handle safe in-editor mutation properly.
+        That problem is solved, we're not re-solving it.</li>
+        <li><strong>An economy or balance simulator.</strong> Tools like
+        Itembase and Leap are already better at this than anything we'd
+        ship on day one.</li>
+        <li><strong>A full IDE.</strong> Viam is a discipline layer today,
+        not a replacement for your editor.</li>
+      </ul>
+    </section>
+
+    <section id="roadmap">
+      <h2>Roadmap</h2>
+      <div class="roadmap-item active">
+        <div class="roadmap-num">1</div>
+        <div>
+          <h3>Working CLI for our own projects (now)</h3>
+          <p>Prove the discipline layer holds up against real games before
+          anyone else touches it. Concretely: both CLI commands run
+          reliably against our own in-development titles, authentication
+          works without daily friction, and the quantitative-data gate
+          catches a real weak idea at least once before Phase 2 starts.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">2</div>
+        <div>
+          <h3>Integration inside a partner platform</h3>
+          <p>Rather than selling Viam standalone, run it as a layer inside
+          a partner's existing product surface. Under discussion, not
+          finalized. The core stays independent of any single partner,
+          built as a portable module rather than something wired directly
+          into their stack, so it isn't stranded if that doesn't happen.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">3</div>
+        <div>
+          <h3>Full-scale product (conditional, distant)</h3>
+          <p>Only after Phase 1 and 2 earn real validation, meaning outside
+          studios have actually used it and would pay for it, not just that
+          it works for us. Not a near-term plan, and no architecture
+          decisions are being made around it yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Viam. The CLI layer is built on the
+      <a href="https://code.claude.com/docs/en/agent-sdk/overview" style="color:var(--accent)">Claude Agent SDK</a>.
+      Powered by Claude.
+    </footer>
+  </main>
+</div>
 
 <script>
-  const steps = document.querySelectorAll('.position-bar .step');
+  const steps = document.querySelectorAll('#position-nav .step');
   const sections = Array.from(steps).map(s => document.getElementById(s.dataset.target));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
