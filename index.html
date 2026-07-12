@@ -20,7 +20,7 @@
     --font-body: "EB Garamond", "Times New Roman", serif;
     --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
     --rail-w: 200px;
-    --content-w: 1180px;
+    --content-w: 1260px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -29,8 +29,8 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-body);
-    font-size: 1.32rem;
-    line-height: 1.72;
+    font-size: 1.55rem;
+    line-height: 1.7;
   }
   h1, h2, h3 { font-family: var(--font-headline); }
   p { color: var(--fg-dim); }
@@ -79,14 +79,14 @@
 
   header.hero { padding: 24px 0 64px; border-bottom: 1px solid var(--border); }
   .hero .brand {
-    font-size: 6rem; letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 7.5rem; letter-spacing: 0.06em; text-transform: uppercase;
     margin: 0 0 4px; line-height: 1; font-weight: 500;
   }
   .hero .tagline {
-    font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
-    letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 40px;
+    font-family: var(--mono); font-size: 0.85rem; color: var(--accent);
+    letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 44px;
   }
-  .hero .lede { font-size: 2rem; line-height: 1.5; margin: 0 0 28px; color: var(--fg); max-width: 820px; }
+  .hero .lede { font-size: 2.5rem; line-height: 1.42; margin: 0 0 32px; color: var(--fg); max-width: 940px; }
   .hero .lede::first-letter {
     font-size: 3.6em; float: left; line-height: 0.72;
     padding: 8px 12px 0 0; color: var(--accent);
@@ -104,24 +104,24 @@
     font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
     color: var(--accent); font-family: var(--mono); margin: 0 0 28px;
   }
-  section > p { max-width: 820px; }
+  section > p { max-width: 900px; }
 
   /* editorial entry list: hanging heading column + flowing body */
   .entries { margin: 8px 0; }
   .entry {
     display: grid;
-    grid-template-columns: 280px minmax(0, 800px);
-    gap: 48px;
-    padding: 30px 0;
+    grid-template-columns: 300px minmax(0, 880px);
+    gap: 52px;
+    padding: 34px 0;
     border-top: 1px solid var(--border);
   }
   .entry:last-child { border-bottom: 1px solid var(--border); }
-  .entry .idx { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); display: block; margin-bottom: 10px; }
-  .entry h3 { margin: 0; font-size: 1.7rem; color: var(--fg); line-height: 1.2; font-weight: 600; }
+  .entry .idx { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); display: block; margin-bottom: 12px; }
+  .entry h3 { margin: 0; font-size: 2.1rem; color: var(--fg); line-height: 1.15; font-weight: 600; }
   .entry .body { margin: 0; }
-  .entry code { font-family: var(--mono); color: var(--accent); font-size: 0.82em; }
-  .entries.tight .entry { padding: 24px 0; }
-  .entries.tight .entry h3 { font-size: 1.4rem; }
+  .entry code { font-family: var(--mono); color: var(--accent); font-size: 0.78em; }
+  .entries.tight .entry { padding: 26px 0; }
+  .entries.tight .entry h3 { font-size: 1.7rem; }
 
   .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; }
   .roadmap-num {
@@ -131,7 +131,7 @@
     font-family: var(--mono); color: var(--accent); font-size: 0.85rem;
   }
   .roadmap-item.active .roadmap-num { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .roadmap-item h3 { margin: 2px 0 8px; font-size: 1.35rem; font-weight: 600; }
+  .roadmap-item h3 { margin: 2px 0 8px; font-size: 1.6rem; font-weight: 600; }
   .roadmap-item p { margin: 0; }
 
   .not-built li { color: var(--fg-dim); margin-bottom: 12px; }
