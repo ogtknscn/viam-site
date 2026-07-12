@@ -23,14 +23,27 @@
     --content-w: 1260px;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    background:
+      radial-gradient(1100px 760px at 12% -6%, rgba(198,163,92,0.08), transparent 55%),
+      radial-gradient(900px 700px at 100% 105%, rgba(150,110,60,0.05), transparent 60%),
+      var(--bg);
+    background-attachment: fixed;
+  }
   body {
     margin: 0;
-    background: var(--bg);
+    background: transparent;
     color: var(--fg);
     font-family: var(--font-body);
     font-size: 1.55rem;
     line-height: 1.7;
+  }
+  /* faint film grain, self-contained SVG, no external asset */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   h1, h2, h3 { font-family: var(--font-headline); }
   p { color: var(--fg-dim); }
@@ -51,6 +64,7 @@
     align-items: start;
   }
 
+  .page { position: relative; z-index: 1; }
   main { min-width: 0; padding: 96px 0 40px; grid-column: 1; }
   .rail { grid-column: 3; }
 
@@ -92,10 +106,24 @@
     padding: 8px 12px 0 0; color: var(--accent);
   }
   .install {
-    display: inline-flex; align-items: center; gap: 12px;
+    display: inline-flex; align-items: center; gap: 11px;
     background: var(--bg-alt); border: 1px solid var(--border);
-    border-radius: 8px; padding: 10px 16px;
-    font-family: var(--mono); font-size: 0.82rem; color: var(--accent);
+    border-radius: 8px; padding: 11px 18px;
+    font-family: var(--mono); font-size: 0.82rem; color: var(--fg-dim);
+  }
+  .install .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    flex-shrink: 0; box-shadow: 0 0 0 0 rgba(198,163,92,0.5);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(198,163,92,0.45); }
+    70% { box-shadow: 0 0 0 8px rgba(198,163,92,0); }
+    100% { box-shadow: 0 0 0 0 rgba(198,163,92,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .install .pulse { animation: none; }
+    html { scroll-behavior: auto; }
   }
 
   section { padding: 64px 0; border-bottom: 1px solid var(--border); }
@@ -103,6 +131,11 @@
   h2 {
     font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
     color: var(--accent); font-family: var(--mono); margin: 0 0 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  h2::before {
+    content: ""; width: 28px; height: 1px; background: var(--accent);
+    flex-shrink: 0; opacity: 0.7;
   }
   section > p { max-width: 900px; }
 
@@ -116,6 +149,8 @@
     border-top: 1px solid var(--border);
   }
   .entry:last-child { border-bottom: 1px solid var(--border); }
+  .entry:hover h3 { color: var(--accent); }
+  .entry h3 { transition: color 0.25s; }
   .entry .idx { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); display: block; margin-bottom: 12px; }
   .entry h3 { margin: 0; font-size: 2.1rem; color: var(--fg); line-height: 1.15; font-weight: 600; }
   .entry .body { margin: 0; }
@@ -173,6 +208,7 @@
         as ready to build.
       </p>
       <div class="install">
+        <span class="pulse"></span>
         <span>Phase 1: private, in active use on our own game projects</span>
       </div>
     </header>
