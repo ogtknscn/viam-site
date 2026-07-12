@@ -7,20 +7,20 @@
 <meta name="description" content="A knowledge base, a multi-agent studio, and a CLI, built to validate a game idea before anyone spends months building it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0d10;
-    --bg-alt: #12151a;
-    --fg: #e8eaed;
-    --fg-dim: #9aa1ab;
-    --accent: #7dd3a8;
-    --border: #232830;
-    --font-headline: "Times New Roman", Times, serif;
-    --font-body: "Times New Roman", Times, serif;
+    --bg: #0d0c0a;
+    --bg-alt: #15130f;
+    --fg: #ece4d5;
+    --fg-dim: #a79d89;
+    --accent: #c6a35c;
+    --border: #2a251c;
+    --font-headline: "EB Garamond", "Times New Roman", serif;
+    --font-body: "EB Garamond", "Times New Roman", serif;
     --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
     --rail-w: 190px;
-    --content-w: 720px;
+    --content-w: 780px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -29,7 +29,8 @@
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-body);
-    line-height: 1.65;
+    font-size: 1.32rem;
+    line-height: 1.72;
   }
   h1, h2, h3 { font-family: var(--font-headline); }
   p { color: var(--fg-dim); }
@@ -42,8 +43,8 @@
 
   .page {
     max-width: calc(var(--content-w) + var(--rail-w) + 120px);
-    margin: 0 auto;
-    padding: 0 40px;
+    margin: 0;
+    padding: 0 40px 0 clamp(40px, 8vw, 150px);
     display: grid;
     grid-template-columns: minmax(0, var(--content-w)) var(--rail-w);
     gap: 60px;
@@ -75,16 +76,20 @@
   .rail a { color: inherit; text-decoration: none; }
   .rail a:hover { color: var(--fg); }
 
-  header.hero { padding-bottom: 56px; border-bottom: 1px solid var(--border); }
+  header.hero { padding: 24px 0 64px; border-bottom: 1px solid var(--border); }
   .hero .brand {
-    font-size: 4rem; letter-spacing: 0.03em; text-transform: uppercase;
-    margin: 0 0 6px; line-height: 1;
+    font-size: 6rem; letter-spacing: 0.06em; text-transform: uppercase;
+    margin: 0 0 4px; line-height: 1; font-weight: 500;
   }
   .hero .tagline {
-    font-family: var(--mono); font-size: 0.8rem; color: var(--accent);
-    letter-spacing: 0.04em; margin: 0 0 36px;
+    font-family: var(--mono); font-size: 0.78rem; color: var(--accent);
+    letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 40px;
   }
-  .hero .lede { font-size: 1.55rem; margin: 0 0 24px; color: var(--fg); }
+  .hero .lede { font-size: 2rem; line-height: 1.5; margin: 0 0 28px; color: var(--fg); }
+  .hero .lede::first-letter {
+    font-size: 3.6em; float: left; line-height: 0.72;
+    padding: 8px 12px 0 0; color: var(--accent);
+  }
   .install {
     display: inline-flex; align-items: center; gap: 12px;
     background: var(--bg-alt); border: 1px solid var(--border);
@@ -92,11 +97,11 @@
     font-family: var(--mono); font-size: 0.82rem; color: var(--accent);
   }
 
-  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
   h2 {
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--accent); font-family: var(--mono); margin: 0 0 22px;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); font-family: var(--mono); margin: 0 0 28px;
   }
 
   /* editorial entry list: hanging heading column + flowing body */
@@ -109,12 +114,12 @@
     border-top: 1px solid var(--border);
   }
   .entry:last-child { border-bottom: 1px solid var(--border); }
-  .entry .idx { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); display: block; margin-bottom: 8px; }
-  .entry h3 { margin: 0; font-size: 1.35rem; color: var(--fg); line-height: 1.25; }
+  .entry .idx { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); display: block; margin-bottom: 10px; }
+  .entry h3 { margin: 0; font-size: 1.7rem; color: var(--fg); line-height: 1.2; font-weight: 600; }
   .entry .body { margin: 0; }
-  .entry code { font-family: var(--mono); color: var(--accent); font-size: 0.88em; }
-  .entries.tight .entry { padding: 22px 0; }
-  .entries.tight .entry h3 { font-size: 1.15rem; }
+  .entry code { font-family: var(--mono); color: var(--accent); font-size: 0.82em; }
+  .entries.tight .entry { padding: 24px 0; }
+  .entries.tight .entry h3 { font-size: 1.4rem; }
 
   .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; }
   .roadmap-num {
@@ -124,7 +129,7 @@
     font-family: var(--mono); color: var(--accent); font-size: 0.85rem;
   }
   .roadmap-item.active .roadmap-num { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .roadmap-item h3 { margin: 2px 0 6px; font-size: 1rem; }
+  .roadmap-item h3 { margin: 2px 0 8px; font-size: 1.35rem; font-weight: 600; }
   .roadmap-item p { margin: 0; }
 
   .not-built li { color: var(--fg-dim); margin-bottom: 12px; }
