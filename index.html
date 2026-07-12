@@ -46,6 +46,8 @@
   }
   .position-bar .step.current { color: var(--accent); }
   .position-bar .step.current .dot { background: var(--accent); }
+  .position-bar a { color: inherit; text-decoration: none; }
+  .position-bar a:hover { color: var(--fg); }
   header.hero {
     padding: 80px 0 64px;
     text-align: center;
@@ -99,13 +101,15 @@
 </head>
 <body>
 
-<div class="position-bar">
-  <span class="step current"><span class="dot"></span>Phase 1: building</span>
-  <span class="step"><span class="dot"></span>Phase 2: partner integration</span>
-  <span class="step"><span class="dot"></span>Phase 3: full product</span>
-</div>
+<nav class="position-bar" id="position-bar">
+  <span class="step" data-target="what-is"><span class="dot"></span><a href="#what-is">What Viam is</a></span>
+  <span class="step" data-target="whats-inside"><span class="dot"></span><a href="#whats-inside">What's inside</a></span>
+  <span class="step" data-target="origin"><span class="dot"></span><a href="#origin">Origin</a></span>
+  <span class="step" data-target="not-built"><span class="dot"></span><a href="#not-built">Not built</a></span>
+  <span class="step" data-target="roadmap"><span class="dot"></span><a href="#roadmap">Roadmap</a></span>
+</nav>
 
-<header class="hero">
+<header class="hero" id="hero">
   <div class="wrap">
     <h1>Viam</h1>
     <p class="tagline">Validate before you build.</p>
@@ -123,7 +127,7 @@
   </div>
 </header>
 
-<section>
+<section id="what-is">
   <div class="wrap">
     <h2>What Viam is</h2>
     <p>
@@ -139,7 +143,7 @@
   </div>
 </section>
 
-<section>
+<section id="whats-inside">
   <div class="wrap">
     <h2>What's inside</h2>
 
@@ -194,7 +198,7 @@
   </div>
 </section>
 
-<section>
+<section id="origin">
   <div class="wrap">
     <h2>Where the CLI came from</h2>
     <p>
@@ -215,7 +219,7 @@
   </div>
 </section>
 
-<section>
+<section id="not-built">
   <div class="wrap">
     <h2>What we didn't build</h2>
     <ul class="not-built">
@@ -235,7 +239,7 @@
   </div>
 </section>
 
-<section>
+<section id="roadmap">
   <div class="wrap">
     <h2>Roadmap</h2>
     <div class="roadmap-item active">
@@ -275,5 +279,20 @@
   </div>
 </footer>
 
+<script>
+  const steps = document.querySelectorAll('.position-bar .step');
+  const sections = Array.from(steps).map(s => document.getElementById(s.dataset.target));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = sections.indexOf(entry.target);
+      if (idx === -1) return;
+      if (entry.isIntersecting) {
+        steps.forEach(s => s.classList.remove('current'));
+        steps[idx].classList.add('current');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => s && observer.observe(s));
+</script>
 </body>
 </html>
