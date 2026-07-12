@@ -19,7 +19,8 @@
     --font-headline: "Times New Roman", Times, serif;
     --font-body: "Times New Roman", Times, serif;
     --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
-    --sidebar-w: 240px;
+    --rail-w: 190px;
+    --content-w: 720px;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -33,88 +34,80 @@
   h1, h2, h3 { font-family: var(--font-headline); }
   p { color: var(--fg-dim); }
 
-  .shell {
-    display: grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    min-height: 100vh;
+  /* thin scroll-progress line at the very top */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0;
+    background: var(--accent); z-index: 50;
   }
 
-  .sidebar {
+  .page {
+    max-width: calc(var(--content-w) + var(--rail-w) + 120px);
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: minmax(0, var(--content-w)) var(--rail-w);
+    gap: 60px;
+    align-items: start;
+  }
+
+  main { min-width: 0; padding: 96px 0 40px; }
+
+  /* right rail floating table of contents */
+  .rail {
     position: sticky;
     top: 0;
     height: 100vh;
-    padding: 48px 28px;
-    border-right: 1px solid var(--border);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
   }
-  .sidebar .brand {
-    font-size: 1.5rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 0 0 4px;
+  .rail nav { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+  .rail .step {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 0.75rem; color: var(--fg-dim);
+    transition: color 0.2s;
   }
-  .sidebar .tagline {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-    margin: 0 0 40px;
+  .rail .line {
+    width: 18px; height: 1px; background: var(--border);
+    flex-shrink: 0; transition: width 0.2s, background 0.2s;
   }
-  .sidebar nav { display: flex; flex-direction: column; gap: 18px; }
-  .sidebar .step {
-    display: flex; align-items: center; gap: 9px;
-    font-family: var(--mono); font-size: 0.8rem; color: var(--fg-dim);
-  }
-  .sidebar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
-  .sidebar .step.current { color: var(--accent); }
-  .sidebar .step.current .dot { background: var(--accent); }
-  .sidebar a { color: inherit; text-decoration: none; }
-  .sidebar a:hover { color: var(--fg); }
-  .sidebar .status-note { font-size: 0.78rem; color: var(--fg-dim); }
-
-  main { min-width: 0; padding: 64px 56px 40px; max-width: 760px; }
+  .rail .step.current { color: var(--accent); }
+  .rail .step.current .line { width: 30px; background: var(--accent); }
+  .rail a { color: inherit; text-decoration: none; }
+  .rail a:hover { color: var(--fg); }
 
   header.hero { padding-bottom: 56px; border-bottom: 1px solid var(--border); }
-  .hero .lede { font-size: 1.6rem; margin: 0 0 20px; color: var(--fg); max-width: 620px; }
+  .hero .brand {
+    font-size: 4rem; letter-spacing: 0.03em; text-transform: uppercase;
+    margin: 0 0 6px; line-height: 1;
+  }
+  .hero .tagline {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--accent);
+    letter-spacing: 0.04em; margin: 0 0 36px;
+  }
+  .hero .lede { font-size: 1.55rem; margin: 0 0 24px; color: var(--fg); }
   .install {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 16px;
+    font-family: var(--mono); font-size: 0.82rem; color: var(--accent);
   }
 
   section { padding: 56px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
   h2 {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    font-family: var(--mono);
-    margin: 0 0 20px;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent); font-family: var(--mono); margin: 0 0 22px;
   }
-  section > p { max-width: 620px; }
 
   .bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    grid-auto-flow: dense;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; grid-auto-flow: dense;
   }
   .card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 22px 24px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    border-radius: 8px; padding: 22px 24px;
   }
-  .card h3 { margin: 0 0 10px; font-size: 1.1rem; color: var(--fg); }
+  .card h3 { margin: 0 0 10px; font-size: 1.15rem; color: var(--fg); }
   .card p { margin: 0; }
   .card code { font-family: var(--mono); color: var(--accent); font-size: 0.9em; }
   .bento .card:nth-child(1) { grid-column: span 2; }
@@ -125,13 +118,10 @@
 
   .origin-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 24px 0; }
 
-  .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; max-width: 620px; }
+  .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; }
   .roadmap-num {
-    flex-shrink: 0;
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bg-alt); border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     font-family: var(--mono); color: var(--accent); font-size: 0.85rem;
   }
@@ -139,22 +129,23 @@
   .roadmap-item h3 { margin: 2px 0 6px; font-size: 1rem; }
   .roadmap-item p { margin: 0; }
 
-  .not-built li { color: var(--fg-dim); margin-bottom: 12px; max-width: 620px; }
+  .not-built li { color: var(--fg-dim); margin-bottom: 12px; }
   .not-built li strong { color: var(--fg); }
 
   footer { padding: 40px 0; color: var(--fg-dim); font-size: 0.85rem; }
 
-  @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; }
-    .sidebar {
-      position: sticky; top: 0; height: auto;
-      flex-direction: row; align-items: center; justify-content: space-between;
-      padding: 14px 20px; border-right: none; border-bottom: 1px solid var(--border);
-      background: var(--bg);
+  @media (max-width: 920px) {
+    .page { grid-template-columns: 1fr; gap: 0; padding: 0 24px; }
+    main { padding: 56px 0 40px; }
+    .rail {
+      position: sticky; top: 0; height: auto; order: -1;
+      background: var(--bg); z-index: 40;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      margin: 0 -24px; align-items: stretch;
     }
-    .sidebar nav { flex-direction: row; gap: 16px; overflow-x: auto; }
-    .sidebar .status-note, .sidebar .tagline { display: none; }
-    main { padding: 40px 24px; }
+    .rail nav { flex-direction: row; gap: 18px; overflow-x: auto; padding: 0 24px; }
+    .rail .line { display: none; }
+    .hero .brand { font-size: 3rem; }
     .bento { grid-template-columns: 1fr; }
     .bento .card:nth-child(n) { grid-column: span 1; grid-row: span 1; }
     .origin-list { grid-template-columns: 1fr; }
@@ -163,24 +154,13 @@
 </head>
 <body>
 
-<div class="shell">
-  <aside class="sidebar">
-    <div>
-      <p class="brand">Viam</p>
-      <p class="tagline">Validate before you build.</p>
-      <nav id="position-nav">
-        <span class="step" data-target="what-is"><span class="dot"></span><a href="#what-is">What Viam is</a></span>
-        <span class="step" data-target="whats-inside"><span class="dot"></span><a href="#whats-inside">What's inside</a></span>
-        <span class="step" data-target="origin"><span class="dot"></span><a href="#origin">Origin</a></span>
-        <span class="step" data-target="not-built"><span class="dot"></span><a href="#not-built">Not built</a></span>
-        <span class="step" data-target="roadmap"><span class="dot"></span><a href="#roadmap">Roadmap</a></span>
-      </nav>
-    </div>
-    <p class="status-note">Phase 1: private, in active use on our own game projects.</p>
-  </aside>
+<div id="progress"></div>
 
+<div class="page">
   <main>
     <header class="hero" id="hero">
+      <h1 class="brand">Viam</h1>
+      <p class="tagline">Validate before you build.</p>
       <p class="lede">
         A system built for one solo game developer, now becoming a product:
         a knowledge base that remembers every past decision, a simulated
@@ -189,7 +169,7 @@
         as ready to build.
       </p>
       <div class="install">
-        <span>Not yet publicly installable, reach out for early access</span>
+        <span>Phase 1: private, in active use on our own game projects</span>
       </div>
     </header>
 
@@ -395,10 +375,20 @@
       Powered by Claude.
     </footer>
   </main>
+
+  <aside class="rail">
+    <nav id="rail-nav">
+      <span class="step" data-target="what-is"><span class="line"></span><a href="#what-is">What Viam is</a></span>
+      <span class="step" data-target="whats-inside"><span class="line"></span><a href="#whats-inside">What's inside</a></span>
+      <span class="step" data-target="origin"><span class="line"></span><a href="#origin">Origin</a></span>
+      <span class="step" data-target="not-built"><span class="line"></span><a href="#not-built">Not built</a></span>
+      <span class="step" data-target="roadmap"><span class="line"></span><a href="#roadmap">Roadmap</a></span>
+    </nav>
+  </aside>
 </div>
 
 <script>
-  const steps = document.querySelectorAll('#position-nav .step');
+  const steps = document.querySelectorAll('#rail-nav .step');
   const sections = Array.from(steps).map(s => document.getElementById(s.dataset.target));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -411,6 +401,13 @@
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => s && observer.observe(s));
+
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    progress.style.width = (scrolled * 100) + '%';
+  }, { passive: true });
 </script>
 </body>
 </html>
