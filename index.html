@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Viam — validate before you build</title>
-<meta name="description" content="A game-development-specific CLI that makes you prove your idea before it lets you build it.">
+<title>Viam: an AI game studio system</title>
+<meta name="description" content="A knowledge base, a multi-agent studio, and a CLI, built to validate a game idea before anyone spends months building it.">
 <style>
   :root {
     --bg: #0b0d10;
@@ -25,6 +25,9 @@
   }
   .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
   .position-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
     gap: 28px;
@@ -49,7 +52,7 @@
   }
   .hero h1 { font-size: 3rem; margin: 0 0 12px; letter-spacing: -0.02em; }
   .hero .tagline { font-size: 1.3rem; color: var(--accent); margin: 0 0 20px; font-weight: 600; }
-  .hero .sub { color: var(--fg-dim); max-width: 560px; margin: 0 auto 32px; }
+  .hero .sub { color: var(--fg-dim); max-width: 580px; margin: 0 auto 32px; }
   .install {
     display: inline-flex;
     align-items: center;
@@ -62,16 +65,6 @@
     font-size: 0.95rem;
     color: var(--accent);
   }
-  .install button {
-    background: var(--border);
-    border: none;
-    color: var(--fg);
-    padding: 4px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.8rem;
-  }
-  .install button:hover { background: #2c333d; }
   .status-note { color: var(--fg-dim); font-size: 0.85rem; margin-top: 16px; }
   section { padding: 48px 0; }
   h2 { font-size: 1.6rem; margin: 0 0 24px; }
@@ -107,9 +100,9 @@
 <body>
 
 <div class="position-bar">
-  <span class="step current"><span class="dot"></span>Phase 1 — building</span>
-  <span class="step"><span class="dot"></span>Phase 2 — partner integration</span>
-  <span class="step"><span class="dot"></span>Phase 3 — full product</span>
+  <span class="step current"><span class="dot"></span>Phase 1: building</span>
+  <span class="step"><span class="dot"></span>Phase 2: partner integration</span>
+  <span class="step"><span class="dot"></span>Phase 3: full product</span>
 </div>
 
 <header class="hero">
@@ -117,15 +110,16 @@
     <h1>Viam</h1>
     <p class="tagline">Validate before you build.</p>
     <p class="sub">
-      A game-development-specific CLI. Not a faster way to generate a GDD or
-      write Unity code — those problems are already solved well by other
-      tools. Viam is the discipline layer that asks whether your idea has
-      real numbers behind it before you spend months on it.
+      A system built for one solo game developer, now becoming a product:
+      a knowledge base that remembers every past decision, a simulated
+      studio of specialized agents, and a discipline layer that asks
+      whether a game idea has real numbers behind it before treating it
+      as ready to build.
     </p>
     <div class="install">
-      <span>Phase 1 — private, in active use on our own game projects</span>
+      <span>Phase 1: private, in active use on our own game projects</span>
     </div>
-    <p class="status-note">Not yet publicly installable. Reach out if you'd like early access to the source.</p>
+    <p class="status-note">Not yet publicly installable. Reach out if you'd like early access.</p>
   </div>
 </header>
 
@@ -133,56 +127,91 @@
   <div class="wrap">
     <h2>What Viam is</h2>
     <p>
-      Every AI coding agent — general-purpose ones and the growing list of
-      game-specific ones — is good at speed: generating a document faster,
-      writing a script faster, producing an asset faster. None of them stop
-      to ask whether the idea underneath was validated with real numbers
-      before you started treating it as real.
-    </p>
-    <p>
-      Viam's answer is a quantitative-data gate: before an idea or GDD is
-      treated as ready to build on, it has to show actual numbers — market
-      size, competitor benchmarks, target retention/CPI/ARPU — not just
-      enthusiasm. That check is the product's spine, not a feature bolted
-      on at the end.
+      Viam is not one tool. It is three layers that work together: a RAG
+      knowledge base that never forgets a decision, a simulated studio of
+      role-specific agents that plan and build like a real team, and a
+      quantitative-data gate that refuses to treat an idea as validated
+      until it has actual numbers behind it. Most AI game tools are fast at
+      one thing: generating a document, writing a script, producing an
+      asset. Viam's job is different. It makes sure the thing being
+      generated deserved to exist in the first place.
     </p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Where this came from</h2>
+    <h2>What's inside</h2>
+
+    <div class="card">
+      <h3>RAG knowledge base</h3>
+      <p>
+        Three collections, one for programming best practices, one for
+        game design documents and design decisions, one for production
+        methodology. Every past decision is logged with its business
+        rationale, so the system can answer "what did we decide, and why"
+        instead of starting from zero every time.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Multi-agent studio</h3>
+      <p>
+        Instead of one model doing everything, specialized agents split
+        the work the way a real studio would: a producer, a game designer,
+        an art director, a marketing lead, each grounded in the same
+        knowledge base and routed to by an orchestrator.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Quantitative-data gate</h3>
+      <p>
+        Before a game design document is treated as validated, it has to
+        contain concrete numbers: market size, competitor benchmarks,
+        target retention, CPI, ARPU. Enthusiasm alone does not pass.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Read-only dev tool access</h3>
+      <p>
+        External collaborators get scoped, read-only access to the
+        knowledge base and a reviewed way to submit their own decisions
+        back, without needing write access to the core system.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3><code>viam</code> CLI (Phase 1, new)</h3>
+      <p>
+        The newest layer: a standalone terminal agent, built on Anthropic's
+        Claude Agent SDK, that carries the quantitative-data gate out of
+        this system and into a general-purpose tool anyone can run against
+        their own project.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Where the CLI came from</h2>
     <p>
-      We started by asking a simple question: why not build a CLI like Pi
-      or Hermes Agent, but for game development? So we looked closely at
-      what already exists — Pi's minimal agent harness, Hermes Agent's
+      We asked a simple question: why not build a CLI like Pi or Hermes
+      Agent, but for game development? So we looked closely at what
+      already exists: Pi's minimal agent harness, Hermes Agent's
       self-improving memory, Bezi and Coplay's deep Unity integration,
       Unity's own native AI tools, multi-agent asset pipelines like Atlas
       AI Studio, and GDD generators like Blueprint, StraySpark, and Ludo.ai.
     </p>
     <p>
-      Every one of them was already good — often very good — at generation
+      Every one of them was already good, often very good, at generation
       and execution speed. None of them asked whether the idea underneath
-      deserved to be built in the first place. That gap, not a faster CLI,
-      is where Viam actually starts.
+      deserved to be built in the first place. That gap is where the CLI
+      layer starts, on top of a discipline the rest of the system already
+      had.
     </p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>What exists today</h2>
-    <div class="card">
-      <h3><code>viam check-gdd &lt;file&gt;</code></h3>
-      <p>Scans an idea/GDD document for concrete numbers — market size, KPI
-      benchmarks, target metrics. Passes or fails, no hedging.</p>
-    </div>
-    <div class="card">
-      <h3><code>viam chat "&lt;prompt&gt;"</code></h3>
-      <p>A terminal agent harness built on Anthropic's Claude Agent SDK,
-      proving the plumbing works before anything game-specific is layered
-      on top of it.</p>
-    </div>
   </div>
 </section>
 
@@ -190,17 +219,17 @@
   <div class="wrap">
     <h2>What we didn't build</h2>
     <ul class="not-built">
-      <li><strong>Our own agent loop</strong> — the Claude Agent SDK already
+      <li><strong>Our own agent loop.</strong> The Claude Agent SDK already
       gives us tool execution, context management, and MCP support. Pi and
-      Hermes Agent already solved this well as general-purpose harnesses;
-      re-solving it would have added nothing.</li>
-      <li><strong>A Unity execution layer</strong> — open-source Unity MCP
+      Hermes Agent already solved this well as general-purpose harnesses,
+      so re-solving it would have added nothing.</li>
+      <li><strong>A Unity execution layer.</strong> Open-source Unity MCP
       servers and Coplay already handle safe in-editor mutation properly.
-      That problem is solved; we're not re-solving it.</li>
-      <li><strong>An economy/balance simulator</strong> — tools like
+      That problem is solved, we're not re-solving it.</li>
+      <li><strong>An economy or balance simulator.</strong> Tools like
       Itembase and Leap are already better at this than anything we'd ship
       on day one.</li>
-      <li><strong>A full IDE</strong> — Viam is a discipline layer today,
+      <li><strong>A full IDE.</strong> Viam is a discipline layer today,
       not a replacement for your editor.</li>
     </ul>
   </div>
@@ -222,16 +251,16 @@
       <div>
         <h3>Integration inside a partner platform</h3>
         <p>Rather than selling Viam standalone, run it as a layer inside a
-        partner's existing product surface. Under discussion — not
-        finalized, and the core stays independent of any single partner so
-        it isn't stranded if that doesn't happen.</p>
+        partner's existing product surface. Under discussion, not
+        finalized. The core stays independent of any single partner so it
+        isn't stranded if that doesn't happen.</p>
       </div>
     </div>
     <div class="roadmap-item">
       <div class="roadmap-num">3</div>
       <div>
         <h3>Full-scale product (conditional, distant)</h3>
-        <p>Only after Phase 1 and 2 earn real validation — not a near-term
+        <p>Only after Phase 1 and 2 earn real validation. Not a near-term
         plan, and no architecture decisions are being made around it yet.</p>
       </div>
     </div>
@@ -240,7 +269,9 @@
 
 <footer>
   <div class="wrap">
-    Viam — built on the <a href="https://code.claude.com/docs/en/agent-sdk/overview" style="color:var(--accent)">Claude Agent SDK</a>. Powered by Claude.
+    Viam. The CLI layer is built on the
+    <a href="https://code.claude.com/docs/en/agent-sdk/overview" style="color:var(--accent)">Claude Agent SDK</a>.
+    Powered by Claude.
   </div>
 </footer>
 
