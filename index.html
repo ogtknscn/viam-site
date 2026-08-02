@@ -7,20 +7,30 @@
 <meta name="description" content="A knowledge base, a multi-agent studio, and a CLI, built to validate a game idea before anyone spends months building it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0c0a;
-    --bg-alt: #15130f;
-    --fg: #ece4d5;
-    --fg-dim: #a79d89;
-    --accent: #c6a35c;
-    --border: #2a251c;
-    --font-headline: "EB Garamond", "Times New Roman", serif;
-    --font-body: "EB Garamond", "Times New Roman", serif;
+    --bg: #faf9f6;
+    --bg-alt: #f1efe8;
+    --fg: #161512;
+    --fg-dim: #5b564a;
+    --accent: #b8863a;
+    --border: #e4e0d5;
+    --font-headline: "Space Grotesk", "Inter", sans-serif;
+    --font-body: "Inter", "Helvetica Neue", sans-serif;
     --mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
     --rail-w: 200px;
     --content-w: 1260px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0b0c;
+      --bg-alt: #131311;
+      --fg: #f2f0ea;
+      --fg-dim: #a79d89;
+      --accent: #d1a54e;
+      --border: #262420;
+    }
   }
   * { box-sizing: border-box; }
   html {
@@ -93,17 +103,16 @@
 
   header.hero { padding: 24px 0 64px; border-bottom: 1px solid var(--border); }
   .hero .brand {
-    font-size: 7.5rem; letter-spacing: 0.06em; text-transform: uppercase;
-    margin: 0 0 4px; line-height: 1; font-weight: 500;
+    font-size: 7.5rem; letter-spacing: -0.02em; text-transform: uppercase;
+    margin: 0 0 4px; line-height: 1; font-weight: 700;
   }
   .hero .tagline {
     font-family: var(--mono); font-size: 0.85rem; color: var(--accent);
     letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 44px;
   }
-  .hero .lede { font-size: 2.5rem; line-height: 1.42; margin: 0 0 32px; color: var(--fg); max-width: 940px; }
-  .hero .lede::first-letter {
-    font-size: 3.6em; float: left; line-height: 0.72;
-    padding: 8px 12px 0 0; color: var(--accent);
+  .hero .lede {
+    font-family: var(--font-headline); font-weight: 500;
+    font-size: 2.3rem; line-height: 1.4; margin: 0 0 32px; color: var(--fg); max-width: 940px;
   }
   .install {
     display: inline-flex; align-items: center; gap: 11px;
@@ -158,6 +167,16 @@
   .entries.tight .entry { padding: 26px 0; }
   .entries.tight .entry h3 { font-size: 1.7rem; }
 
+  .entries.cards {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .entries.cards .entry {
+    grid-template-columns: 1fr; gap: 14px; padding: 28px;
+    border: 1px solid var(--border); border-radius: 14px;
+    background: var(--bg-alt); border-top: 1px solid var(--border);
+  }
+  .entries.cards .entry:last-child { border-bottom: 1px solid var(--border); }
+
   .roadmap-item { display: flex; gap: 16px; margin-bottom: 24px; }
   .roadmap-num {
     flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
@@ -188,6 +207,7 @@
     .rail .line { display: none; }
     .hero .brand { font-size: 3rem; }
     .entry { grid-template-columns: 1fr; gap: 12px; }
+    .entries.cards { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -229,7 +249,7 @@
 
     <section id="whats-inside">
       <h2>What's inside</h2>
-      <div class="entries">
+      <div class="entries cards">
         <div class="entry">
           <div><span class="idx">01</span><h3>RAG knowledge base</h3></div>
           <p class="body">
